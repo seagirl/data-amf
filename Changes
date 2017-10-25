@@ -1,5 +1,28 @@
 Revision history for Perl extension Data::AMF
 
+0.09 2010-08-31T15:28:16+09:00
+     - fixed numeric string start with '0' encoded as number, it should be encoded as string.
+
+0.08 2010-08-04T09:15:06+09:00
+     - fixed bug that Data::AMF::Message didn't compiled at all (by Artem S Vybornov)
+     - on AMF3, some fractional numbers was serialized as integers (by Artem S Vybornov)
+
+0.07 2010-07-29T17:35:59+09:00
+     - added missing undefined check on io read functions
+
+0.06 2010-07-21T14:45:17+09:00
+     - minor changes for recent Moose
+
+0.05 2010-07-21T11:45:32+09:00
+     - use Any::Moose
+
+0.04 2010-05-20T15:08:31+09:00
+     - fixed AMF3 empty string handling (seagirl++)
+
+0.03 2009-12-24T21:39:01+09:00
+     - added AMF3 support (seagirl++)
+     - added Data::AMF::Remoting (seagirl++)
+
 0.02004 2008-08-19T11:08:14+09:00
      - now serialize can handle multiple array data at once, same as deserialize
 

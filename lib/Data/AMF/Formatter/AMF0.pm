@@ -1,8 +1,8 @@
 package Data::AMF::Formatter::AMF0;
-use Moose;
+use Any::Moose;
 
 require bytes;
-use Scalar::Util qw/looks_like_number/;
+use Scalar::Util qw/looks_like_number blessed/;
 use Data::AMF::IO;
 
 has 'io' => (
@@ -13,6 +13,8 @@ has 'io' => (
         Data::AMF::IO->new( data => q[] );
     },
 );
+
+no Any::Moose;
 
 sub format {
     my ($self, @obj) = @_;
@@ -30,11 +32,11 @@ sub format {
                 $self->format_object($obj);
             }
             else {
-                confess qq[cannot format "$ref" object];
+                Carp::confess qq[cannot format "$ref" object];
             }
         }
         else {
-            if (looks_like_number($obj)) {
+            if (looks_like_number($obj) && $obj !~ /^0\d/) {
                 $self->format_number($obj);
             }
             elsif (defined($obj)) {
@@ -106,6 +108,10 @@ sub format_typed_object {
     $self->format_object($obj);
 }
 
+__PACKAGE__->meta->make_immutable;
+
+__END__
+
 =head1 NAME
 
 Data::AMF::Formatter::AMF0 - AMF0 serializer
@@ -143,6 +149,3 @@ The full text of the license can be found in the
 LICENSE file included with this module.
 
 =cut
-
-1;
-
